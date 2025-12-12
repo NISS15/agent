@@ -3,7 +3,10 @@ uvicorn
 python-dotenv
 loguru
 aiohttp
-pipecat-cloud==0.2.0
+pipecat-ai==0.2.4
+assemblyai
+daily-python==0.11.0
+
 
 
 # Add any other pipecat provider libs you need (assemblyai, cartesia etc.)
