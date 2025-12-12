@@ -1,4 +1,4 @@
-pipecat-ai==0.2.4
+pipecat-ai==0.0.97
 assemblyai
 aiohttp
 fastapi
