@@ -6,16 +6,16 @@ from loguru import logger
 
 from pipecatcloud.vad import SileroVAD
 
-from pipecat.frames.frames import LLMMessagesFrame
-from pipecat.pipeline.pipeline import Pipeline
-from pipecat.pipeline.runner import PipelineRunner
-from pipecat.pipeline.task import PipelineParams, PipelineTask
-from pipecat.processors.aggregators.openai_llm_context import OpenAILLMContext
-from pipecat.services.cartesia.tts import CartesiaTTSService
-from pipecat.services.openai.llm import OpenAILLMService
-from pipecat.transports.services.daily import DailyParams, DailyTransport
-from pipecat.services.assemblyai.stt import AssemblyAISTTService, AssemblyAIConnectionParams
-from pipecat.processors.transcript_processor import TranscriptProcessor
+from pipecatcloud.frames.frames import LLMMessagesFrame
+from pipecatcloud.pipeline.pipeline import Pipeline
+from pipecatcloud.pipeline.runner import PipelineRunner
+from pipecatcloud.pipeline.task import PipelineParams, PipelineTask
+from pipecatcloud.processors.aggregators.openai_llm_context import OpenAILLMContext
+from pipecatcloud.services.cartesia.tts import CartesiaTTSService
+from pipecatcloud.services.openai.llm import OpenAILLMService
+from pipecatcloud.transports.services.daily import DailyParams, DailyTransport
+from pipecatcloud.services.assemblyai.stt import AssemblyAISTTService, AssemblyAIConnectionParams
+from pipecatcloud.processors.transcript_processor import TranscriptProcessor
 
 load_dotenv(override=True)
 
