@@ -8,7 +8,8 @@ from pydantic import BaseModel
 from typing import Optional
 from pipecatcloud.agent import DailySessionArguments
 # Import your bot entrypoint
-from bot import bot as bot_entrypoint
+from bot import main as bot_entrypoint
+
 
 load_dotenv(override=True)
 
