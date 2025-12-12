@@ -1,11 +1,12 @@
+pipecat-ai==0.2.4
+assemblyai
+aiohttp
 fastapi
 uvicorn
 python-dotenv
 loguru
-aiohttp
-pipecat-ai==0.2.4
-assemblyai
 daily-python==0.11.0
+
 
 
 
