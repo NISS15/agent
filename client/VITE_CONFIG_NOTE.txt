@@ -1,0 +1,4 @@
+Update your Vite frontend to use environment variable VITE_API_URL.
+In client/src/config.ts or similar:
+  export const API_BASE_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+Then set VITE_API_URL in Render static site environment variables to your backend URL.
