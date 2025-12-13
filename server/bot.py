@@ -59,7 +59,7 @@ async def create_daily_token(session, room_name: str):
 
     payload = {
         "properties": {
-            "room_name": room_name,
+            "room_name": "NISS",
             "is_owner": True,
             "user_name": "NISS",
             "exp": int(time.time()) + 3600,
