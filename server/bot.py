@@ -173,7 +173,7 @@ async def main(room_url: str):
 
 
         # ✅ Updated VAD initialization
-        vad = SileroVAD()
+       # vad = SileroVAD()
 
         # DAILY transport
         transport = DailyTransport(
