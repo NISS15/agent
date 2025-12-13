@@ -76,8 +76,12 @@ async def main(room_url: str = None, token: str = None):
     async with aiohttp.ClientSession() as session:
 
         if not room_url:
-            room_url = await create_daily_room(session)
-            token = DAILY_API_KEY
+            
+            
+            room_name = "NISS"
+            room_url = await create_daily_room(session, room_name)
+            token = await create_daily_token(session, room_name)
+
             logger.info(f"Created Daily room: {room_url}")
 
         logger.info(f"Starting bot in room: {room_url}")
