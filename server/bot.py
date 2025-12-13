@@ -202,8 +202,8 @@ async def main(room_url: str = PRECREATED_ROOM_URL):
                 llm,
                 tts,
                 transport.output(),
-                transcript.assistant(),
-                context_aggregator.assistant(),
+               # transcript.assistant(),
+               # context_aggregator.assistant(),
             ]
         )
 
