@@ -29,16 +29,15 @@ class SessionRequest(BaseModel):
     token: Optional[str] = None
 
 @app.post("/session")
-async def create_session(req: SessionRequest):
-    """Returns a Daily room url + token (or triggers bot worker)."""
-    # This endpoint in the example returns the same structure expected by the frontend.
-    # In production, you can create a Daily room here and spawn a worker to run the bot.
-    # For the pipecat example, your deployment should have a background worker that runs the bot.
-    return {"room_url": req.room_url or None, "token": req.token or None}
+async def create_session():
+    import asyncio
 
-@app.get("/")
-async def root():
-    return {"status": "Agentic Render Ready"}
+    asyncio.create_task(bot_entrypoint.main())
+
+    return {
+        "status": "bot starting"
+    }
+
 
 if __name__ == "__main__":
     port = int(os.environ.get("PORT", 8000))
