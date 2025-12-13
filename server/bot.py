@@ -143,10 +143,10 @@ async def main(room_url: str = PRECREATED_ROOM_URL):
 
         # DAILY transport
         transport = DailyTransport(
-            room_url,
+            room_url=room_url,
           #  token,
-            "bot",
-            DailyParams(
+          #  "bot",
+           params= DailyParams(
                 audio_out_enabled=True,
                 transcription_enabled=True,
                 vad_enabled=True,
