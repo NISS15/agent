@@ -45,7 +45,7 @@ async def create_daily_room(session: aiohttp.ClientSession, room_name: str = "NI
         text = await r.json()
         try:
             data = await r.json()
-            return data.get("url")
+            return data.get("URL")
         except Exception:
             logger.error(f"Failed to parse JSON for room creation. Response text: {text}")
             return None
