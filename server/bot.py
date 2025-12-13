@@ -35,13 +35,38 @@ CARTESIA_API_KEY = os.getenv("CARTESIA_API_KEY")
 # -----------------------------
 # Create Daily Room
 # -----------------------------
-async def create_daily_room(session: aiohttp.ClientSession, room_name: str = "agentic-bot"):
+async def create_daily_room(session: aiohttp.ClientSession, room_name: str = "NISS"):
     headers = {"Authorization": f"Bearer {DAILY_API_KEY}"}
-    payload = {"name": "NISS" ,"privacy": "private"}
+    payload = {"name": room_name ,"privacy": "private"}
 
-    async with session.post("https://agenticnishan.daily.co/NISS", headers=headers, json=payload) as r:
+    async with session.post("https://agenticnishan.daily.co/v1/rooms", headers=headers, json=payload) as r:
         data = await r.json()
         return data.get("url")
+
+async def create_daily_token(session, room_name: str):
+    headers = {
+        "Authorization": f"Bearer {DAILY_API_KEY}",
+        "Content-Type": "application/json",
+    }
+
+    payload = {
+        "properties": {
+            "room_name": room_name,
+            "is_owner": True,
+            "user_name": "NISS",
+            "exp": int(time.time()) + 3600,
+        }
+    }
+
+    async with session.post(
+        "https://agenticnishan.daily.co/v1/meeting-tokens",
+        headers=headers,
+        json=payload,
+    ) as r:
+        r.raise_for_status()
+        data = await r.json()
+        return data["token"]
+
 
 
 # -----------------------------
