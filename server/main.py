@@ -9,7 +9,7 @@ from typing import Optional
 from pipecatcloud.agent import DailySessionArguments
 # Import your bot entrypoint
 
-from server.bot import bot_entrypoint  # async def bot_entrypoint()
+from bot import bot_entrypoint # async def bot_entrypoint()
 
 
 load_dotenv(override=True)
