@@ -255,32 +255,32 @@ async def main(room_url: str):
         # -----------------------------
         # Event Handlers
         # -----------------------------
-        @transcript.event_handler("on_transcript_update")
-        async def on_update(processor, frame):
-            for msg in frame.messages:
-                logger.info(f"{msg.role}: {msg.content}")
-                if msg.role == "user":
-                    messages.append({"role": "user", "content": msg.content})
+      #  @transcript.event_handler("on_transcript_update")
+       # async def on_update(processor, frame):
+        #    for msg in frame.messages:
+         #       logger.info(f"{msg.role}: {msg.content}")
+          #      if msg.role == "user":
+           #         messages.append({"role": "user", "content": msg.content})
 
 
-        @transport.event_handler("on_first_participant_joined")
-        async def on_join(transport, participant):
-            logger.info("Participant joined: {}", participant["id"])
-            await transport.capture_participant_transcription(participant["id"])
+    #    @transport.event_handler("on_first_participant_joined")
+     #   async def on_join(transport, participant):
+      #      logger.info("Participant joined: {}", participant["id"])
+       #     await transport.capture_participant_transcription(participant["id"])
 
-            messages.append({"role": "system", "content": "Say hello to the user!"})
-            await task.queue_frames([LLMMessagesFrame(messages)])
+        #    messages.append({"role": "system", "content": "Say hello to the user!"})
+         #   await task.queue_frames([LLMMessagesFrame(messages)])
 
 
-        @transport.event_handler("on_participant_left")
-        async def on_left(transport, participant, reason):
-            logger.info("Participant left: {}", participant)
-            await task.cancel()
+        #@transport.event_handler("on_participant_left")
+        #async def on_left(transport, participant, reason):
+         #   logger.info("Participant left: {}", participant)
+          #  await task.cancel()
 
 
         # RUN
-        runner = PipelineRunner()
-        await runner.run(task)
+     #   runner = PipelineRunner()
+     #  await runner.run(task)
 
 
 # -----------------------------
