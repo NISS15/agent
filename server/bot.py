@@ -59,7 +59,7 @@ async def create_daily_token(session, room_name: str):
     }
 
     async with session.post(
-        "https://agenticnishan.daily.co/v1/meeting-tokens",
+        "https://api.daily.co/v1/meeting-tokens",
         headers=headers,
         json=payload,
     ) as r:
