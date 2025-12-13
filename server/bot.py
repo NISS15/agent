@@ -37,54 +37,54 @@ CARTESIA_API_KEY = os.getenv("CARTESIA_API_KEY")
 # -----------------------------
 # Create Daily Room
 # -----------------------------
-async def create_daily_room(session: aiohttp.ClientSession, room_name: str = "NISS"):
-    headers = {"Authorization": f"Bearer {DAILY_API_KEY}"}
-    payload = {"name": room_name ,"privacy": "public"}
+#async def create_daily_room(session: aiohttp.ClientSession, room_name: str = "NISS"):
+#    headers = {"Authorization": f"Bearer {DAILY_API_KEY}"}
+ #   payload = {"name": room_name ,"privacy": "private"}
 
-    async with session.post("https://api.daily.co/v1/rooms", headers=headers, json=payload) as r:
-        if r.status == 201:
-            data = await r.json()
-            return data.get("url")
-        elif r.status == 400:
+#    async with session.post("https://api.daily.co/v1/rooms", headers=headers, json=payload) as r:
+  #      if r.status == 201:
+ #           data = await r.json()
+ #           return data.get("url")
+ #       elif r.status == 400:
             # Room already exists, fetch it instead
-            async with session.get(f"https://api.daily.co/v1/rooms/{room_name}", headers=headers) as existing_r:
-                existing_data = await existing_r.json()
-                return existing_data.get("url")
-        else:
-            data = await r.text()
-            logger.error(f"Failed to create Daily room: {data}")
-            return None
+   #         async with session.get(f"https://api.daily.co/v1/rooms/{room_name}", headers=headers) as existing_r:
+    #            existing_data = await existing_r.json()
+    #            return existing_data.get("url")
+     #   else:
+     #       data = await r.text()
+      #      logger.error(f"Failed to create Daily room: {data}")
+      #      return None
        
         
 
-async def create_daily_token(session, room_name: str):
-    headers = {
-        "Authorization": f"Bearer {DAILY_API_KEY}",
-        "Content-Type": "application/json",
-    }
+#async def create_daily_token(session, room_name: str):
+  #  headers = {
+   #     "Authorization": f"Bearer {DAILY_API_KEY}",
+   #     "Content-Type": "application/json",
+   # }
 
-    payload = {
-        "properties": {
-            "room_name": "NISS",
-            "is_owner": True,
-            "user_name": "NISS",
-            "exp": int(time.time()) + 3600,
-        }
-    }
+   # payload = {
+    #    "properties": {
+      #      "room_name": "NISS",
+      #      "is_owner": True,
+      #      "user_name": "NISS",
+       #     "exp": int(time.time()) + 3600,
+      #  }
+  #  }
 
-    async with session.post(
-        "https://api.daily.co/v1/meeting-tokens",
-        headers=headers,
-        json=payload,
-    ) as r:
-        text = await r.text()
-        try:
-            r.raise_for_status()
-            data = await r.json()
-            return data.get("token")
-        except Exception:
-            logger.error(f"Failed to create token. Response text: {text}")
-            return None
+  #  async with session.post(
+   #     "https://api.daily.co/v1/meeting-tokens",
+   #     headers=headers,
+    #    json=payload,
+   # ) as r:
+    #    text = await r.text()
+     #   try:
+     #       r.raise_for_status()
+     #       data = await r.json()
+      #      return data.get("token")
+      #  except Exception:
+      #      logger.error(f"Failed to create token. Response text: {text}")
+       #     return None
         
 
 
@@ -92,32 +92,51 @@ async def create_daily_token(session, room_name: str):
 # -----------------------------
 # Main Bot Logic
 # -----------------------------
-async def main(room_url: str = None, token: str = None):
-    async with aiohttp.ClientSession() as session:
+#async def main(room_url: str = None, token: str = None):
+#    async with aiohttp.ClientSession() as session:
 
-        if not room_url:
+ #       if not room_url:
             
             
-            room_name = "NISS"
+    #        room_name = "NISS"
             # room_url = await create_daily_room(session, room_name)
-            room_url = f"https://{room_name}.daily.co"
-            token = await create_daily_token(session, room_name)
-            if not token:
-                logger.error("Failed to create Daily token. Exiting bot.")
-                return
+    #        room_url = f"https://{room_name}.daily.co"
+     #       token = await create_daily_token(session, room_name)
+     #       if not token:
+      #          logger.error("Failed to create Daily token. Exiting bot.")
+      #          return
            # if not room_url or not token:
                # logger.error("Failed to create Daily room or token. Exiting bot.")
                # return
 
-            logger.info(f"Created/using existed Daily room: {room_url}")
-            logger.info(f"Generated Daily token: {token}")
+       #     logger.info(f"Created/using existed Daily room: {room_url}")
+        #    logger.info(f"Generated Daily token: {token}")
 
-        logger.info(f"Starting bot in room: {room_url}")
+    #    logger.info(f"Starting bot in room: {room_url}")
 
         # Simulate your bot loop here
-        while True:
-            await asyncio.sleep(1)
-            logger.info("Bot running...")  # Replace with your bot logic
+    #    while True:
+    #        await asyncio.sleep(1)
+     #       logger.info("Bot running...")  # Replace with your bot logic
+
+
+
+import logging
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger("bot")
+
+PRECREATED_ROOM_URL = "https://NISS.daily.co"  # Use your free room
+
+async def main(room_url: str = PRECREATED_ROOM_URL):
+    logger.info(f"Using pre-created Daily room: {room_url}")
+
+    # Simulate your bot loop
+    while True:
+        await asyncio.sleep(1)
+        logger.info("Bot running...")  # Replace with your bot logic
+
+
 
         # ✅ Updated VAD initialization
         vad = SileroVAD()
