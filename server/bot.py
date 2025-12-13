@@ -195,7 +195,8 @@ async def main(room_url: str = PRECREATED_ROOM_URL):
         pipeline = Pipeline(
             [
                 transport.input(),
-                context_aggregator.user(),
+                #context_aggregator.user(),
+                context,
                 stt,
                 transcript.user(),
                 llm,
