@@ -176,80 +176,80 @@ async def main(room_url: str):
        # vad = SileroVAD()
 
         # DAILY transport
-        transport = DailyTransport(
-            room_url=room_url,
+       # transport = DailyTransport(
+         #   room_url=room_url,
           #  token,
           #  "bot",
-            token=None,                 # FREE room → no token
-            role="participant",         # or "guest"
-            params= DailyParams(
-                audio_out_enabled=True,
-                transcription_enabled=True,
-                vad_enabled=True,
-                vad_analyzer=vad,
-            ),
-        )
+         #   token=None,                 # FREE room → no token
+          #  role="participant",         # or "guest"
+          #  params= DailyParams(
+           #     audio_out_enabled=True,
+           #     transcription_enabled=True,
+           #     vad_enabled=True,
+           #     vad_analyzer=vad,
+         #   ),
+      #  )
 
         # TTS / LLM services
-        tts = CartesiaTTSService(
-            api_key=CARTESIA_API_KEY,
-            voice_id=os.getenv("CARTESIA_VOICE_ID", "79a125e8-cd45-4c13-8a67-188112f4dd22")
-        )
+     #   tts = CartesiaTTSService(
+         #   api_key=CARTESIA_API_KEY,
+        #    voice_id=os.getenv("CARTESIA_VOICE_ID", "79a125e8-cd45-4c13-8a67-188112f4dd22")
+       # )
 
-        llm = OpenAILLMService(
-            api_key=OPENAI_API_KEY,
-            model=os.getenv("OPENAI_MODEL", "gpt-4o")
-        )
+        #llm = OpenAILLMService(
+         #   api_key=OPENAI_API_KEY,
+        #    model=os.getenv("OPENAI_MODEL", "gpt-4o")
+       # )
 
         # Messages memory
-        messages = [
-            {
-                "role": "system",
-                "content": "You are a helpful agent speaking in a WebRTC call."
-            }
-        ]
+        #messages = [
+            #{
+           #     "role": "system",
+          #      "content": "You are a helpful agent speaking in a WebRTC call."
+         #   }
+        #]
 
-        context = OpenAILLMContext(messages)
-        context_aggregator = llm.create_context_aggregator(context)
+        #context = OpenAILLMContext(messages)
+        #context_aggregator = llm.create_context_aggregator(context)
 
         # STT
-        stt = AssemblyAISTTService(
-            connection_params=AssemblyAIConnectionParams(
-                end_of_turn_confidence_threshold=0.7,
-                min_end_of_turn_silence_when_confident=160,
-                max_turn_silence=2400,
-            ),
-            api_key=ASSEMBLYAI_API_KEY,
-            vad_force_turn_endpoint=False
-        )
+        #stt = AssemblyAISTTService(
+            #connection_params=AssemblyAIConnectionParams(
+              #  end_of_turn_confidence_threshold=0.7,
+             #   min_end_of_turn_silence_when_confident=160,
+            #    max_turn_silence=2400,
+           # ),
+          #  api_key=ASSEMBLYAI_API_KEY,
+         #   vad_force_turn_endpoint=False
+        #)
 
-        transcript = TranscriptProcessor()
+        #transcript = TranscriptProcessor()
 
         # PIPELINE
-        pipeline = Pipeline(
-            [
-                transport.input(),
+        #pipeline = Pipeline(
+            #[
+                #transport.input(),
                 #context_aggregator.user(),
-                context,
-                stt,
-                transcript.user(),
-                llm,
-                tts,
-                transport.output(),
+               # context,
+              #  stt,
+             #   transcript.user(),
+            #    llm,
+           #     tts,
+          #      transport.output(),
                # transcript.assistant(),
                # context_aggregator.assistant(),
-            ]
-        )
+         #   ]
+        #)
 
-        task = PipelineTask(
-            pipeline,
-            params=PipelineParams(
-                allow_interruptions=True,
-                enable_metrics=True,
-                enable_usage_metrics=True,
-                report_only_initial_ttfb=True,
-            ),
-        )
+        #task = PipelineTask(
+            #pipeline,
+           # params=PipelineParams(
+          #      allow_interruptions=True,
+         #       enable_metrics=True,
+        #        enable_usage_metrics=True,
+       #         report_only_initial_ttfb=True,
+      #      ),
+     #   )
 
 
         # -----------------------------
