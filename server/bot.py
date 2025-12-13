@@ -137,11 +137,38 @@ async def main(room_url: str = None):
     logger.info(f"Starting bot in room: {room_url}")
 
 
+from pipecat.transports.jitsi import JitsiTransport
+from pipecat.transports.base import TransportParams
+async def main(room_url: str):
+    transport = JitsiTransport(
+        room_url=room_url,
+        params=TransportParams(audio_in=True, audio_out=True),
+    )
 
-    # Simulate your bot loop
-    while True:
-        await asyncio.sleep(1)
-        logger.info("Bot running...")  # Replace with your bot logic
+    context = OpenAILLMContext()
+    context.add_message(
+        role="system",
+        content="You are a helpful voice assistant in a Jitsi meeting.",
+    )
+
+    llm = OpenAILLMService(
+        api_key=os.environ["OPENAI_API_KEY"],
+        model="gpt-4o-mini",
+    )
+
+    pipeline = Pipeline(
+        [
+            transport.input(),
+            context,
+            llm,
+            transport.output(),
+        ]
+    )
+
+    await pipeline.run()
+
+
+
 
 
 
