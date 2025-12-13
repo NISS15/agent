@@ -146,7 +146,9 @@ async def main(room_url: str = PRECREATED_ROOM_URL):
             room_url=room_url,
           #  token,
           #  "bot",
-           params= DailyParams(
+            token=None,                 # FREE room → no token
+            role="participant",         # or "guest"
+            params= DailyParams(
                 audio_out_enabled=True,
                 transcription_enabled=True,
                 vad_enabled=True,
