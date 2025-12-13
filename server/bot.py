@@ -99,13 +99,17 @@ async def main(room_url: str = None, token: str = None):
             
             
             room_name = "NISS"
-            room_url = await create_daily_room(session, room_name)
+            # room_url = await create_daily_room(session, room_name)
+            room_url = f"https://{room_name}.daily.co"
             token = await create_daily_token(session, room_name)
-            if not room_url or not token:
-                logger.error("Failed to create Daily room or token. Exiting bot.")
+            if not token:
+                logger.error("Failed to create Daily token. Exiting bot.")
                 return
+           # if not room_url or not token:
+               # logger.error("Failed to create Daily room or token. Exiting bot.")
+               # return
 
-            logger.info(f"Created Daily room: {room_url}")
+            logger.info(f"Created/using existed Daily room: {room_url}")
             logger.info(f"Generated Daily token: {token}")
 
         logger.info(f"Starting bot in room: {room_url}")
