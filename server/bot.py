@@ -39,7 +39,7 @@ CARTESIA_API_KEY = os.getenv("CARTESIA_API_KEY")
 # -----------------------------
 async def create_daily_room(session: aiohttp.ClientSession, room_name: str = "NISS"):
     headers = {"Authorization": f"Bearer {DAILY_API_KEY}"}
-    payload = {"name": room_name ,"privacy": "private"}
+    payload = {"name": room_name ,"privacy": "public"}
 
     async with session.post("https://api.daily.co/v1/rooms", headers=headers, json=payload) as r:
         if r.status == 201:
