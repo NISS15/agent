@@ -8,7 +8,8 @@ from pydantic import BaseModel
 from typing import Optional
 from pipecatcloud.agent import DailySessionArguments
 # Import your bot entrypoint
-from bot import main as bot_entrypoint
+
+from server.bot import bot_entrypoint  # async def bot_entrypoint()
 
 
 load_dotenv(override=True)
@@ -32,11 +33,8 @@ class SessionRequest(BaseModel):
 async def create_session():
     import asyncio
 
-    asyncio.create_task(bot_entrypoint.main())
-
-    return {
-        "status": "bot starting"
-    }
+    asyncio.create_task(bot_entrypoint())
+    return {"status": "bot starting"}
 
 
 if __name__ == "__main__":
