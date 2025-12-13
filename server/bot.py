@@ -39,7 +39,7 @@ async def create_daily_room(session: aiohttp.ClientSession, room_name: str = "NI
     headers = {"Authorization": f"Bearer {DAILY_API_KEY}"}
     payload = {"name": room_name ,"privacy": "private"}
 
-    async with session.post("https://agenticnishan.daily.co/v1/rooms", headers=headers, json=payload) as r:
+    async with session.post("https://api.daily.co/v1/rooms", headers=headers, json=payload) as r:
         data = await r.json()
         return data.get("url")
 
