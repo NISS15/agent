@@ -27,7 +27,7 @@ app.add_middleware(
 class SessionRequest(BaseModel):
     # Optional: allow passing a pre-created room_url and token
     room_url: Optional[str] = None
-    token: Optional[str] = None
+  #  token: Optional[str] = None
 
 @app.post("/session")
 async def create_session():
