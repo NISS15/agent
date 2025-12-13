@@ -31,10 +31,13 @@ class SessionRequest(BaseModel):
 
 @app.post("/session")
 async def create_session():
-    import asyncio
-
-    asyncio.create_task(bot_entrypoint())
-    return {"status": "bot starting"}
+    
+    try:
+        import asyncio
+        asyncio.create_task(bot_entrypoint())
+        return {"status": "bot starting"}
+    except Exception as e:
+        return {"error": str(e)}
 
 
 if __name__ == "__main__":
