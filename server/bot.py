@@ -122,14 +122,21 @@ CARTESIA_API_KEY = os.getenv("CARTESIA_API_KEY")
 
 
 import logging
+import random
+import string
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("bot")
+# Main Bot Logic
+async def main(room_url: str = None):
+    if not room_url:
+        room_name = "NISS"
+        room_url = f"https://meet.jit.si/{room_name}"
+        logger.info(f"Created/using Jitsi room: {room_url}")
 
-PRECREATED_ROOM_URL = "https://NISS.daily.co"  # Use your free room
+    logger.info(f"Starting bot in room: {room_url}")
 
-async def main(room_url: str = PRECREATED_ROOM_URL):
-    logger.info(f"Using pre-created Daily room: {room_url}")
+
 
     # Simulate your bot loop
     while True:
