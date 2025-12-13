@@ -144,7 +144,7 @@ async def main(room_url: str = PRECREATED_ROOM_URL):
         # DAILY transport
         transport = DailyTransport(
             room_url,
-            token,
+          #  token,
             "bot",
             DailyParams(
                 audio_out_enabled=True,
