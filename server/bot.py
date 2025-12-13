@@ -42,13 +42,19 @@ async def create_daily_room(session: aiohttp.ClientSession, room_name: str = "NI
     payload = {"name": room_name ,"privacy": "private"}
 
     async with session.post("https://api.daily.co/v1/rooms", headers=headers, json=payload) as r:
-        text = await r.json()
-        try:
+        if r.status == 201:
             data = await r.json()
-            return data.get("URL")
-        except Exception:
-            logger.error(f"Failed to parse JSON for room creation. Response text: {text}")
+            return data.get("url")
+        elif r.status == 400:
+            # Room already exists, fetch it instead
+            async with session.get(f"https://api.daily.co/v1/rooms/{room_name}", headers=headers) as existing_r:
+                existing_data = await existing_r.json()
+                return existing_data.get("url")
+        else:
+            data = await r.text()
+            logger.error(f"Failed to create Daily room: {data}")
             return None
+       
         
 
 async def create_daily_token(session, room_name: str):
